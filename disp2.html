@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body style=" background-image: url(./wallpaper1.jpg);color:aliceblue">
+    <center><h1 style="color:brown">EMPLOYEE SALARY CALCULATION</h1></center>
+    <div class="container mt-5" style="width:60%;">
+   <table class="table table-striped" style="width: 70%;background-color:rgb(29, 150, 172);" id="result1">
+       
+   </table>
+</div>
+
+</body>
+
+<script>
+    fetch("http://localhost:2570/salcalc",{
+        mode:"cors"
+    })
+    .then((e)=>
+    {
+        return e.json()
+    })
+    .then((e1)=>{
+        console.log(e1.length)
+        if(e1.length!=0)
+            {
+            let temp = `<tr><th>Employee Name</th><th>Employee Id</th><th>Salary</th></tr>`;
+            for(let d of e1)
+            {
+                temp += `<tr>
+                    <td>${d.Emp_name} </td>
+                    <td>${d.Emp_id}</td>
+                    <td>${d.Salary}</td>        
+                </tr>`;
+            }
+
+        document.getElementById("result1").innerHTML = temp;
+        }
+        else{
+            document.getElementById("result1").innerHTML = "No record found";
+        }
+
+    })
+</script>
+
+</html>
